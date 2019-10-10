@@ -24,4 +24,4 @@ hiervoor o.a. de R map (bijvoorbeeld C:\Program Files\R\R-3.5.1\bin\i386) toe aa
 
 ### Who do I talk to? ###
 
-* Repo owner or admin: d.drittij@vu.nl
+* Repo owner or admin: danieldritty @ hotmail.com

@@ -1,0 +1,67 @@
+---
+title: "`r thetitle`"
+output: pdf_document
+header-includes:
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage[table]{xcolor}
+- \usepackage{wrapfig}
+- \usepackage{float}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable}
+- \usepackage{threeparttablex}
+- \usepackage[normalem]{ulem}
+- \usepackage{makecell}
+- \usepackage{fancyhdr}
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+---
+
+\addtolength{\headheight}{0.5cm} 
+\pagestyle{fancyplain} 
+\lhead{Inzagerapport} 
+\rhead{\includegraphics[height=1.2cm]{G:/DSZ/OKZ/OTIR/Toetsen/Werkmap/VUlogo.png}} 
+\renewcommand{\headrulewidth}{0pt}
+
+## Gemiddelde score groep en score student
+
+```{r Overzicht score, echo=FALSE}
+
+Gemiddelde_score <- as.data.frame(toets$'Gemiddelde score')
+
+kable(Gemiddelde_score, "markdown", digits = 0,  row.names = F, col.names = "Gemiddelde score")
+
+kable(total_score_selectie, "markdown", row.names = F, col.names = c("Naam", "Studentnummer", "Score", "Cijfer"))
+
+```
+
+## Gegeven antwoorden en antwoordsleutel
+
+
+```{r inzage scores, echo=FALSE}
+studenselectie <- t(teleformdata_new_selectie[3:nrc]) %>% 
+  as.data.frame() %>% 
+  rownames_to_column() %>% 
+  bind_cols(tsleutel)
+
+kable(studenselectie, "markdown", row.names = F, col.names = c("Vraag", "Antwoord", "Antwoordsleutel"))
+
+```
+
+
+## Score positie ten opzichte van de groep
+
+```{r, echo=FALSE}
+library(ggplot2)
+ggplot(cijfers, aes(score))+
+  geom_histogram(binwidth = 1)+
+xlim(0, as.numeric(nrq)) +
+geom_vline(xintercept = total_score_selectie$score, color="blue")
+
+```
+
